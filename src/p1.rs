@@ -4,12 +4,19 @@
 // (D)
 #[cfg(test)]
 mod tests {
-    fn my_last<T>(xs: &[T]) -> Option<&T> {
-        xs.last()
+    fn my_last<T: Clone>(xs: &[T]) -> Vec<T> {
+        match xs.last() {
+            Some(x) => vec![x.clone()],
+            None => vec![]
+        }
     }
 
     #[quickcheck]
     fn last_is_first_of_reversed(xs: Vec<isize>) -> bool {
-        my_last(&xs) == xs.iter().rev().next()
+        let res = my_last(&xs);
+        match res.len() {
+            0 => xs.len() == 0,
+            _ => res[0] == xs.iter().rev().next().unwrap().clone()
+        }
     }
 }
