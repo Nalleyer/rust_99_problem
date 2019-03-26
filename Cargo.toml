@@ -1,0 +1,9 @@
+[package]
+name = "rust_99_problem"
+version = "0.1.0"
+authors = ["nalleyer <nalleyer@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+quickcheck = "0.8"
+quickcheck_macros = "0.8"
