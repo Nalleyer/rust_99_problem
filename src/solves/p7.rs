@@ -15,8 +15,18 @@ use crate::common::*;
 #[cfg(test)]
 mod tests {
     use crate::common::*;
-    // #[quickcheck]
-    // fn check_function(ls: List<isize>) -> bool {
-    //     true
-    // }
+    #[quickcheck]
+    fn check_function(ls: List<i32>) -> bool {
+        // println!("{:?}", ls);
+        if ls.len() > 0 {
+            match &ls[0] {
+                Node::Item(x) => true,
+                Node::List(v) => false
+            }
+        } else {
+            true
+        }
+    }
+    
+    
 }
