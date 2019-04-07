@@ -8,13 +8,19 @@
 // Hint: Use the predefined functions list and append.
 
 use crate::common::*;
-// pub fn flat<T: Clone>(ls: List<T>) -> List<Node<T>> {
-//     ls.map(|&x| x)
-// }
+pub fn flat<T: Clone>(ls: &List<T>) -> List<T> {
+    ls.iter().flat_map(|node|
+        match node {
+            Node::Item(x) => vec!(node.clone()),
+            Node::List(ls) => ls.clone()
+        }
+    ).collect()
+}
 
 #[cfg(test)]
 mod tests {
     use crate::common::*;
+    /*
     #[quickcheck]
     fn check_function(ls: List<i32>) -> bool {
         // println!("{:?}", ls);
@@ -27,6 +33,12 @@ mod tests {
             true
         }
     }
+    */
     
-    
+    #[test]
+    fn empty() {
+        let nested: List<isize> = vec![Node::Item(3), Node::List(vec!(Node::Item(5), Node::Item(7)))];
+        let flatted = super::flat(&nested);
+        assert_eq!(flatted, vec![Node::Item(3), Node::Item(5), Node::Item(7)]);
+    }
 }
